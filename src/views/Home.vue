@@ -1,24 +1,20 @@
 <template>
-  <base-header>
-    <h1>Hello World</h1>
-  </base-header>
+  <div class="container py-4">
+    <base-header>
+      <h1>D N E V</h1>
+    </base-header>
+    <DisplayTopGames />
+  </div>
 </template>
 
 <script>
-import { useStore } from "vuex";
-
 import BaseHeader from "../components/BaseHeader.vue";
+import DisplayTopGames from "../components/DisplayTopGames.vue";
 
 export default {
   components: {
-    BaseHeader
-  },
-  setup() {
-    const store = useStore();
-
-    store.dispatch("getGames");
+    BaseHeader,
+    DisplayTopGames
   }
 };
 </script>
-
-BaseHeader

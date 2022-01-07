@@ -4,9 +4,10 @@ const APIKEY = process.env.VUE_APP_APIKEY;
 const ENDPOINT = process.env.VUE_APP_ENDPOINT;
 
 export default {
-  async getGames() {
+  async getTopGamesDataFromAPI({ commit }) {
     const fetchGamesData = await axios.get(`${ENDPOINT}/games?key=${APIKEY}`);
-    const resultData = await fetchGamesData.data;
-    console.log(resultData.results);
+    const resultFromFetchGamesData = await fetchGamesData.data;
+
+    commit("updateTopGamesDataState", resultFromFetchGamesData.results);
   }
 };
