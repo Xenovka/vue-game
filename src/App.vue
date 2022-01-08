@@ -11,7 +11,7 @@ $red-color: red;
   padding: 0;
   margin: 0;
   font-size: 62.5%;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
 }
 </style>
