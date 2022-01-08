@@ -9,5 +9,11 @@ export default {
     const resultFromFetchGamesData = await fetchGamesData.data;
 
     commit("updateTopGamesDataState", resultFromFetchGamesData.results);
+  },
+  async getSearchedGamesDataFromAPI({ commit }, name) {
+    const fetchSearchedGame = await axios.get(`${ENDPOINT}/games?search=${name}&key=${APIKEY}`);
+    const resultFromFetchSearcedhGame = await fetchSearchedGame.data;
+
+    commit("updateFoundGamesData", resultFromFetchSearcedhGame.results);
   }
 };

@@ -4,7 +4,8 @@ import actions from "./actions";
 
 export default createStore({
   state: {
-    topGamesData: null
+    topGamesData: null,
+    foundGamesData: null
   },
   mutations,
   actions
