@@ -1,6 +1,6 @@
 <template>
-  <div class="display-games row g-4">
-    <div class="col-lg-3" v-for="game in topGamesData" :key="game.id">
+  <div class="display-games">
+    <div class="display-games__card-wrapper" v-for="game in topGamesData" :key="game.id">
       <div class="display-games__card">
         <a href="#" class="display-games__image-wrapper">
           <img :src="game.background_image" :alt="game.name" class="display-games__image" />
@@ -32,6 +32,11 @@ export default {
 
 <style lang="scss">
 .display-games {
+  display: grid;
+  grid-gap: 10px 24px;
+  grid-template-columns: repeat(auto-fit, minmax(243px, 1fr));
+  width: 100%;
+
   &__card {
     padding: 0 !important;
     margin-bottom: 1rem;
