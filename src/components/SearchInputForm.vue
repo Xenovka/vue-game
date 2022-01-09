@@ -1,13 +1,29 @@
 <template>
-  <form class="game-search" @keypress.enter.prevent="searchGameDataByName(inputedGameName)">
-    <input type="text" name="search-for-games" class="game-search__input" v-model="inputedGameName" ref="inputForm" placeholder="Search your games" />
-  </form>
+  <div class="game-search">
+    <form @submit.prevent="searchGameDataByName(inputedGameName)">
+      <input
+        type="text"
+        name="search-for-games"
+        class="game-search__input"
+        v-model="inputedGameName"
+        ref="inputForm"
+        placeholder="Search your games"
+      />
+    </form>
+    <div v-if="foundGameData">
+      <DisplaySearchedGames :foundGames="foundGameData" />
+    </div>
+  </div>
 </template>
 
 <script>
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
+
+import DisplaySearchedGames from "./DisplaySearchedGames.vue";
+
 export default {
+  components: { DisplaySearchedGames },
   setup() {
     const store = useStore();
 
@@ -15,9 +31,13 @@ export default {
     const foundGameData = ref(null);
 
     const searchGameDataByName = (name) => {
+      if (!name) {
+        foundGameData.value = null;
+        return;
+      }
+
       store.dispatch("getSearchedGamesDataFromAPI", name).then(() => {
         foundGameData.value = store.state.foundGamesData;
-        console.log(foundGameData.value);
       });
     };
 
@@ -33,6 +53,7 @@ export default {
 <style lang="scss">
 .game-search {
   width: 70%;
+  position: relative;
 
   &__input {
     width: 100%;

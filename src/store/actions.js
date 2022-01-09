@@ -11,7 +11,7 @@ export default {
     commit("updateTopGamesDataState", resultFromFetchGamesData.results);
   },
   async getSearchedGamesDataFromAPI({ commit }, name) {
-    const fetchSearchedGame = await axios.get(`${ENDPOINT}/games?search=${name}&key=${APIKEY}`);
+    const fetchSearchedGame = await axios.get(`${ENDPOINT}/games?key=${APIKEY}&search=${name}&page_size=5`);
     const resultFromFetchSearcedhGame = await fetchSearchedGame.data;
 
     commit("updateFoundGamesData", resultFromFetchSearcedhGame.results);
