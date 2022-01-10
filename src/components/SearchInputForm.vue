@@ -1,6 +1,6 @@
 <template>
   <div class="game-search">
-    <form @submit.prevent="searchGameDataByName(inputedGameName)">
+    <form @keyup="searchGameDataByName(inputedGameName)">
       <input
         type="text"
         name="search-for-games"
