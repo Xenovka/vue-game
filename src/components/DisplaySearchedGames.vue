@@ -1,7 +1,7 @@
 <template>
   <div class="searched-games">
-    <div class="searched-games__result" v-for="game in searchedGamesData" :key="game.slug">
-      <h1>{{ game.name }}</h1>
+    <div class="searched-games__result" v-for="game in searchedGamesList" :key="game.id">
+      <router-link class="searched-games__name" :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }">{{ game.name }}</router-link>
     </div>
   </div>
 </template>
@@ -11,22 +11,22 @@ import { ref, toRefs } from "@vue/reactivity";
 import { watch } from "@vue/runtime-core";
 
 export default {
-  props: ["foundGames"],
+  props: ["searchedGames"],
   setup(props) {
-    const searchedGamesData = ref(null);
-    const { foundGames } = toRefs(props);
+    const searchedGamesList = ref(null);
+    const { searchedGames } = toRefs(props);
 
-    searchedGamesData.value = foundGames.value;
+    searchedGamesList.value = searchedGames.value;
 
     watch(
-      () => props.foundGames,
-      (updatedGamesData) => {
-        searchedGamesData.value = updatedGamesData;
+      () => props.searchedGames,
+      (updatedGamesList) => {
+        searchedGamesList.value = updatedGamesList;
       }
     );
 
     return {
-      searchedGamesData
+      searchedGamesList
     };
   }
 };
@@ -37,11 +37,18 @@ export default {
   display: block;
   position: absolute;
   margin: 10px 0;
-  padding: 14px;
+  padding: 24px;
   width: 100%;
   background-color: #fff;
   border-radius: 24px;
   box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.3);
   z-index: 999;
+
+  &__name {
+    font-size: 2rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+  }
 }
 </style>

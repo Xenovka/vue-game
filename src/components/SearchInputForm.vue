@@ -1,6 +1,6 @@
 <template>
   <div class="game-search">
-    <form @keyup="searchGameDataByName(inputedGameName)">
+    <form @submit.prevent="searchGameListByName(inputedGameName)" @keyup="searchGameListByName(inputedGameName)">
       <input
         type="text"
         name="search-for-games"
@@ -10,8 +10,8 @@
         placeholder="Search your games"
       />
     </form>
-    <div v-if="foundGameData">
-      <DisplaySearchedGames :foundGames="foundGameData" />
+    <div v-if="searchedGamesList">
+      <DisplaySearchedGames :searchedGames="searchedGamesList" />
     </div>
   </div>
 </template>
@@ -28,23 +28,23 @@ export default {
     const store = useStore();
 
     const inputedGameName = ref("");
-    const foundGameData = ref(null);
+    const searchedGamesList = ref(null);
 
-    const searchGameDataByName = (name) => {
+    const searchGameListByName = (name) => {
       if (!name) {
-        foundGameData.value = null;
+        searchedGamesList.value = null;
         return;
       }
 
-      store.dispatch("getSearchedGamesDataFromAPI", name).then(() => {
-        foundGameData.value = store.state.foundGamesData;
+      store.dispatch("getSearchedGameList", name).then(() => {
+        searchedGamesList.value = store.state.searchedGameList;
       });
     };
 
     return {
       inputedGameName,
-      foundGameData,
-      searchGameDataByName
+      searchedGamesList,
+      searchGameListByName
     };
   }
 };

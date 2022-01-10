@@ -1,8 +1,13 @@
 export default {
-  updateTopGamesDataState(state, data) {
-    state.topGamesData = data;
+  updateTopGamesListState(state, data) {
+    state.topGamesList = data;
   },
-  updateFoundGamesData(state, data) {
-    state.foundGamesData = data;
+
+  updateSearchedGameListState(state, data) {
+    state.searchedGameList = data;
+  },
+
+  updateGameDetailsState(state, data) {
+    state.gameDetails = data;
   }
 };

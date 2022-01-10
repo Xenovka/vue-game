@@ -1,10 +1,10 @@
 <template>
   <div class="display-games">
-    <div class="display-games__card-wrapper" v-for="game in topGamesData" :key="game.id">
+    <div class="display-games__card-wrapper" v-for="game in topGamesList" :key="game.id">
       <div class="display-games__card">
-        <a href="#" class="display-games__image-wrapper">
+        <router-link :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }" class="display-games__image-wrapper">
           <img :src="game.background_image" :alt="game.name" class="display-games__image" />
-        </a>
+        </router-link>
         <h3 class="display-games__name">{{ game.name }}</h3>
       </div>
     </div>
@@ -18,14 +18,14 @@ import { useStore } from "vuex";
 export default {
   setup() {
     const store = useStore();
-    const topGamesData = ref(null);
+    const topGamesList = ref(null);
 
-    store.dispatch("getTopGamesDataFromAPI").then(() => {
-      topGamesData.value = store.state.topGamesData;
-      console.log(topGamesData.value);
+    store.dispatch("getTopGamesList").then(() => {
+      topGamesList.value = store.state.topGamesList;
+      console.log(topGamesList.value);
     });
 
-    return { topGamesData };
+    return { topGamesList };
   }
 };
 </script>
