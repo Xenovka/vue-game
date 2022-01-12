@@ -1,14 +1,28 @@
 <template>
-  <div class="game-details" v-if="gameDetails">
-    <img class="game-details__background-image" :src="gameDetails['background_image']" alt="game image" />
+  <div class="game-details" v-if="gameDetailsById">
+    <img class="game-details__background-image" :src="gameDetailsBySlug['background_image']" alt="game image" />
+    <h1 class="game-details__name">{{ gameDetailsBySlug.name }}</h1>
     <div class="game-details__content-wrapper container py-5">
-      <h1 class="game-details__name">{{ gameDetails.name }}</h1>
-      <div class="game-details__description">
-        <h1 class="game-details__description--title">About</h1>
-        <div class="game-details__description--text" v-html="gameDetails.description"></div>
+      <div>
+        <div class="game-details__description">
+          <h1 class="game-details__description--title">About</h1>
+          <div class="game-details__description--text" v-html="gameDetailsById.description"></div>
+        </div>
+        <div class="game-details__tags">
+          <h1 class="game-details__tags--title">Tags</h1>
+          <a class="game-details__tags--name" v-for="tag in gameDetailsById.tags" :key="tag.id">{{ tag.name }},</a>
+        </div>
       </div>
-      <div class="game-details__tags">
-        <a class="game-details__tags--name" v-for="tag in gameDetails.tags" :key="tag.id">{{ tag.name }}</a>
+      <div>
+        <div class="game-details__screenshots">
+          <img
+            v-for="screenshot in gameDetailsBySlug['short_screenshots']"
+            :key="screenshot.id"
+            :src="screenshot.image"
+            alt="game screenshot"
+            class="game-details__screenshots--item"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -24,16 +38,23 @@ export default {
     const route = useRoute();
     const store = useStore();
 
-    const gameDetails = ref(null);
-    const gameId = route.params.gameId;
+    const gameDetailsBySlug = ref(null);
+    const gameDetailsById = ref(null);
+    const gameSlug = route.params.gameSlug;
 
-    store.dispatch("getGameDetailsById", gameId).then(() => {
-      gameDetails.value = store.state.gameDetails;
-      console.log(gameDetails.value);
+    store.dispatch("getGameDetailsBySlug", gameSlug).then(() => {
+      gameDetailsBySlug.value = store.state.gameDetails[0];
+      console.log(gameDetailsBySlug.value);
+
+      store.dispatch("getGameDetailsById", gameDetailsBySlug.value.id).then(() => {
+        gameDetailsById.value = store.state.gameDetails;
+        console.log(gameDetailsById.value);
+      });
     });
 
     return {
-      gameDetails
+      gameDetailsBySlug,
+      gameDetailsById
     };
   }
 };
@@ -52,7 +73,15 @@ export default {
   &__content-wrapper {
     display: grid;
     grid-gap: 20px;
-    grid-auto-columns: minmax(400px, 1fr);
+    grid-auto-columns: minmax(calc(100vw * 0.25), calc(100vw * 0.5));
+
+    & > :first-child {
+      grid-column: 1/2;
+    }
+
+    & > :last-child {
+      grid-column: 2/3;
+    }
   }
 
   &__name {
@@ -60,12 +89,9 @@ export default {
     font-weight: 700;
     text-align: center;
     color: #fff;
-    grid-column: 1/3;
   }
 
   &__description {
-    grid-column: 1/2;
-
     &--text > p {
       font-size: 1.6rem;
       font-weight: 400;
@@ -77,15 +103,30 @@ export default {
       font-size: 2.4rem;
       font-weight: 700;
       color: #fff;
+      margin-top: 2rem;
     }
   }
 
   &__tags {
-    grid-column: 2/3;
+    word-wrap: break-word;
+
+    &--title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 2rem;
+    }
 
     &--name {
       font-size: 1.4rem;
       color: #fff;
+      padding: 0 2px;
+    }
+  }
+
+  &__screenshots {
+    &--item {
+      max-width: 180px;
     }
   }
 }
