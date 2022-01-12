@@ -2,7 +2,7 @@
   <div class="display-games">
     <div class="display-games__card-wrapper" v-for="game in topGamesList" :key="game.id">
       <div class="display-games__card">
-        <router-link :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }" class="display-games__image-wrapper">
+        <router-link :to="{ name: 'GameDetails', params: { gameId: game.id } }" class="display-games__image-wrapper">
           <img :src="game.background_image" :alt="game.name" class="display-games__image" />
         </router-link>
         <h3 class="display-games__name">{{ game.name }}</h3>

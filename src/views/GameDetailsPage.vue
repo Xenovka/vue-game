@@ -18,10 +18,10 @@ export default {
     const store = useStore();
 
     const gameDetails = ref(null);
-    const gameSlug = route.params.gameSlug;
+    const gameId = route.params.gameId;
 
-    store.dispatch("getGameDetailsBySlug", gameSlug).then(() => {
-      gameDetails.value = store.state.gameDetails[0];
+    store.dispatch("getGameDetailsById", gameId).then(() => {
+      gameDetails.value = store.state.gameDetails;
       console.log(gameDetails.value);
     });
 

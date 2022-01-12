@@ -10,7 +10,7 @@ const routes = [
     component: Home
   },
   {
-    path: "/details/:gameSlug",
+    path: "/details/:gameId",
     name: "GameDetails",
     component: GameDetailsPage
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="searched-games">
     <div class="searched-games__result" v-for="game in searchedGamesList" :key="game.id">
-      <router-link class="searched-games__name" :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }">{{ game.name }}</router-link>
+      <router-link class="searched-games__name" :to="{ name: 'GameDetails', params: { gameId: game.id } }">{{ game.name }}</router-link>
     </div>
   </div>
 </template>

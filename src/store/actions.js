@@ -18,10 +18,10 @@ export default {
     commit("updateSearchedGameListState", searchedGameResult.results);
   },
 
-  async getGameDetailsBySlug({ commit }, slug) {
-    const fetchGameDetails = await axios.get(`${ENDPOINT}/games?key=${APIKEY}&search=${slug}`);
+  async getGameDetailsById({ commit }, id) {
+    const fetchGameDetails = await axios.get(`${ENDPOINT}/games/${id}?key=${APIKEY}`);
     const gameDetailsResult = await fetchGameDetails.data;
 
-    commit("updateGameDetailsState", gameDetailsResult.results);
+    commit("updateGameDetailsState", gameDetailsResult);
   }
 };
