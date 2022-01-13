@@ -1,17 +1,17 @@
 <template>
   <div class="container py-4">
-    <DefaultNavbar />
+    <HomeNavbar />
     <DisplayTopGames />
   </div>
 </template>
 
 <script>
-import DefaultNavbar from "../components/DefaultNavbar.vue";
+import HomeNavbar from "../components/HomeNavbar.vue";
 import DisplayTopGames from "../components/DisplayTopGames.vue";
 
 export default {
   components: {
-    DefaultNavbar,
+    HomeNavbar,
     DisplayTopGames
   }
 };
