@@ -31,5 +31,12 @@ export default {
     const gameDetailsResult = await fetchGameDetails.data;
 
     commit("updateGameDetailsState", gameDetailsResult);
+  },
+
+  async getGenresList({ commit }) {
+    const fetchGenres = await axios.get(`${ENDPOINT}/genres?key=${APIKEY}`);
+    const fetchResult = await fetchGenres.data;
+
+    commit("updateGenresListState", fetchResult.results);
   }
 };

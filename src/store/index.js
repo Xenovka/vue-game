@@ -6,7 +6,8 @@ export default createStore({
   state: {
     topGamesList: null,
     searchedGameList: null,
-    gameDetails: null
+    gameDetails: null,
+    genresList: null
   },
   mutations,
   actions

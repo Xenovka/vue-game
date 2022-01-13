@@ -9,5 +9,9 @@ export default {
 
   updateGameDetailsState(state, data) {
     state.gameDetails = data;
+  },
+
+  updateGenresListState(state, data) {
+    state.genresList = data;
   }
 };
