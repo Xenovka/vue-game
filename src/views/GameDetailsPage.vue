@@ -64,6 +64,8 @@ export default {
 .game-details {
   &__background-image {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     filter: brightness(0.2);

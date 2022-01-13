@@ -1,7 +1,9 @@
 <template>
   <div class="searched-games">
     <div class="searched-games__result" v-for="game in searchedGamesList" :key="game.id">
-      <router-link class="searched-games__name" :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }">{{ game.name }}</router-link>
+      <router-link class="searched-games__name" :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }">{{
+        game.name
+      }}</router-link>
     </div>
   </div>
 </template>
@@ -36,19 +38,18 @@ export default {
 .searched-games {
   display: block;
   position: absolute;
-  margin: 10px 0;
+  margin: 18px 0;
   padding: 24px;
   width: 100%;
-  background-color: #fff;
+  background-color: #020202;
   border-radius: 24px;
-  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.3);
   z-index: 999;
 
   &__name {
     font-size: 2rem;
     font-weight: 600;
     text-decoration: none;
-    color: inherit;
+    color: #fff;
   }
 }
 </style>

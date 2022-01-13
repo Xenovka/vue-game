@@ -57,15 +57,21 @@ export default {
 
   &__input {
     width: 100%;
-    height: 4.4rem;
+    height: 4rem;
     border: none;
     border-radius: 24px;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    font-weight: 600;
     padding: 0 24px;
-    box-shadow: 0 4px 10px rgba($color: #000000, $alpha: 0.2);
+    color: #fff;
+    background-color: #3b3b3b;
+    transition: all 0.3s ease;
 
-    &:focus {
+    &:focus,
+    &:hover {
       outline: none;
+      background-color: #eee;
+      color: #141414;
     }
   }
 }

@@ -2,7 +2,10 @@
   <div class="display-games">
     <div class="display-games__card-wrapper" v-for="game in topGamesList" :key="game.id">
       <div class="display-games__card">
-        <router-link :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }" class="display-games__image-wrapper">
+        <router-link
+          :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }"
+          class="display-games__image-wrapper"
+        >
           <img :src="game.background_image" :alt="game.name" class="display-games__image" />
         </router-link>
         <h3 class="display-games__name">{{ game.name }}</h3>
@@ -41,8 +44,8 @@ export default {
     padding: 0 !important;
     margin-bottom: 1rem;
     border-radius: 14px;
-    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.3);
     overflow: hidden;
+    background-color: #202020;
   }
 
   &__image-wrapper {
@@ -61,6 +64,7 @@ export default {
     font-size: 2.4rem;
     font-weight: 700;
     line-height: 24px;
+    color: #fff;
   }
 }
 </style>

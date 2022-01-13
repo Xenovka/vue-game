@@ -14,4 +14,8 @@ $red-color: red;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
 }
+
+body {
+  background-color: #141414 !important;
+}
 </style>
