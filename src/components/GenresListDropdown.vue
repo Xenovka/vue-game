@@ -3,7 +3,9 @@
     <h1 class="genres__target" @mouseenter="mouseEnteredGenres">Genres</h1>
     <ul class="genres__wrapper" v-if="isHovered" @mouseleave="mouseLeftGenres">
       <li v-for="genre in genresList" :key="genre.id" class="genres__list">
-        <router-link to="/" class="genres__item">{{ genre.name }}</router-link>
+        <router-link :to="{ name: 'GameByGenre', params: { genre: genre.name.toLowerCase() } }" class="genres__item">{{
+          genre.name
+        }}</router-link>
       </li>
     </ul>
   </div>
@@ -22,7 +24,6 @@ export default {
 
     store.dispatch("getGenresList").then(() => {
       genresList.value = store.state.genresList;
-      console.log(genresList.value);
     });
 
     const mouseEnteredGenres = () => {

@@ -4,11 +4,13 @@ const APIKEY = process.env.VUE_APP_APIKEY;
 const ENDPOINT = process.env.VUE_APP_ENDPOINT;
 
 export default {
-  async getTopGamesList({ commit }) {
-    const fetchGamesList = await axios.get(`${ENDPOINT}/games?key=${APIKEY}&page_size=40`);
+  async getGamesList({ commit }, genre) {
+    const fetchGamesList = genre
+      ? await axios.get(`${ENDPOINT}/games?key=${APIKEY}&page_size=40&genres=${genre}`)
+      : await axios.get(`${ENDPOINT}/games?key=${APIKEY}&page_size=40`);
     const resultFromFetchGamesList = await fetchGamesList.data;
 
-    commit("updateTopGamesListState", resultFromFetchGamesList.results);
+    commit("updateGamesListState", resultFromFetchGamesList.results);
   },
 
   async getSearchedGameList({ commit }, name) {

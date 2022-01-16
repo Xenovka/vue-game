@@ -1,6 +1,6 @@
 <template>
-  <div class="display-games">
-    <div class="display-games__card-wrapper" v-for="game in topGamesList" :key="game.id">
+  <div class="display-games" v-if="gamesList">
+    <div class="display-games__card-wrapper" v-for="game in gamesList" :key="game.id">
       <div class="display-games__card">
         <router-link
           :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }"
@@ -17,18 +17,27 @@
 <script>
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+import { watch } from "@vue/runtime-core";
 
 export default {
   setup() {
     const store = useStore();
-    const topGamesList = ref(null);
+    const route = useRoute();
 
-    store.dispatch("getTopGamesList").then(() => {
-      topGamesList.value = store.state.topGamesList;
-      console.log(topGamesList.value);
+    const gamesList = ref(null);
+
+    store.dispatch("getGamesList", route.params.genre).then(() => {
+      gamesList.value = store.state.gamesList;
     });
 
-    return { topGamesList };
+    watch(route, (g) => {
+      store.dispatch("getGamesList", g.params.genre).then(() => {
+        gamesList.value = store.state.gamesList;
+      });
+    });
+
+    return { gamesList };
   }
 };
 </script>

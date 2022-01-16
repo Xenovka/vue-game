@@ -1,6 +1,6 @@
 export default {
-  updateTopGamesListState(state, data) {
-    state.topGamesList = data;
+  updateGamesListState(state, data) {
+    state.gamesList = data;
   },
 
   updateSearchedGameListState(state, data) {
