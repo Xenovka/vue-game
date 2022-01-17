@@ -1,7 +1,7 @@
 <template>
   <div class="genres">
-    <h1 class="genres__target" @mouseenter="mouseEnteredGenres">Genres</h1>
-    <ul class="genres__wrapper" v-if="isHovered" @mouseleave="mouseLeftGenres">
+    <h1 class="genres__target" @mouseenter="mouseEnteredGenres" @mouseleave="mouseLeftGenres">Genres</h1>
+    <ul class="genres__wrapper" v-if="isHovered" @mouseenter="mouseEnteredGenres" @mouseleave="mouseLeftGenres">
       <li v-for="genre in genresList" :key="genre.id" class="genres__list">
         <router-link :to="{ name: 'GameByGenre', params: { genre: genre.name.toLowerCase() } }" class="genres__item">{{
           genre.name
@@ -52,6 +52,8 @@ export default {
 
   &__target {
     width: 220px;
+    margin: 0;
+    padding: 15px 0;
     font-size: 2.2rem;
     font-weight: 700;
     letter-spacing: 2px;
@@ -66,7 +68,7 @@ export default {
   }
 
   &__wrapper {
-    margin: 18px 0 0 40px;
+    margin: 0 0 0 40px;
     position: absolute;
     top: 100%;
     background-color: #020202;
