@@ -1,14 +1,55 @@
 <template>
   <div class="display-games" v-if="gamesList">
-    <div class="display-games__card-wrapper" v-for="game in gamesList" :key="game.id">
-      <div class="display-games__card">
-        <router-link
-          :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }"
-          class="display-games__image-wrapper"
-        >
-          <img :src="game.background_image" :alt="game.name" class="display-games__image" />
-        </router-link>
-        <h3 class="display-games__name">{{ game.name }}</h3>
+    <div>
+      <div class="display-games__card-wrapper" v-for="game in firstColumnGames" :key="game.id">
+        <div class="display-games__card">
+          <router-link
+            :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }"
+            class="display-games__image-wrapper"
+          >
+            <img :src="game.background_image" srcset="" :alt="game.name" class="display-games__image" />
+          </router-link>
+          <h3 class="display-games__name">{{ game.name }}</h3>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="display-games__card-wrapper" v-for="game in secondColumnGames" :key="game.id">
+        <div class="display-games__card">
+          <router-link
+            :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }"
+            class="display-games__image-wrapper"
+          >
+            <img :src="game.background_image" :alt="game.name" class="display-games__image" />
+          </router-link>
+          <h3 class="display-games__name">{{ game.name }}</h3>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="display-games__card-wrapper" v-for="game in thirdColumnGames" :key="game.id">
+        <div class="display-games__card">
+          <router-link
+            :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }"
+            class="display-games__image-wrapper"
+          >
+            <img :src="game.background_image" :alt="game.name" class="display-games__image" />
+          </router-link>
+          <h3 class="display-games__name">{{ game.name }}</h3>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="display-games__card-wrapper" v-for="game in fourthColumnGames" :key="game.id">
+        <div class="display-games__card">
+          <router-link
+            :to="{ name: 'GameDetails', params: { gameSlug: game.slug } }"
+            class="display-games__image-wrapper"
+          >
+            <img :src="game.background_image" :alt="game.name" class="display-games__image" />
+          </router-link>
+          <h3 class="display-games__name">{{ game.name }}</h3>
+        </div>
       </div>
     </div>
   </div>
@@ -25,10 +66,28 @@ export default {
     const store = useStore();
     const route = useRoute();
 
+    let firstColumnGames = [],
+      secondColumnGames = [],
+      thirdColumnGames = [],
+      fourthColumnGames = [];
+
     const gamesList = ref(null);
+
+    function insertGameToArray(array, game) {
+      array.push(game);
+    }
 
     store.dispatch("getGamesList", route.params.genre).then(() => {
       gamesList.value = store.state.gamesList;
+      gamesList.value.forEach((game) => {
+        if (firstColumnGames.length !== 10) insertGameToArray(firstColumnGames, game);
+        else if (secondColumnGames.length !== 10) insertGameToArray(secondColumnGames, game);
+        else if (thirdColumnGames.length !== 10) insertGameToArray(thirdColumnGames, game);
+        else if (fourthColumnGames.length !== 10) insertGameToArray(fourthColumnGames, game);
+        else {
+          return;
+        }
+      });
     });
 
     watch(route, (g) => {
@@ -37,7 +96,7 @@ export default {
       });
     });
 
-    return { gamesList };
+    return { gamesList, firstColumnGames, secondColumnGames, thirdColumnGames, fourthColumnGames };
   }
 };
 </script>
@@ -45,16 +104,33 @@ export default {
 <style lang="scss">
 .display-games {
   display: grid;
-  grid-gap: 10px 24px;
-  grid-template-columns: repeat(auto-fit, minmax(243px, 1fr));
+  grid-gap: 0 24px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-areas: "col1 col2 col3 col4";
   width: 100%;
+
+  &:nth-child(1) {
+    grid-area: col1;
+  }
+
+  &:nth-child(2) {
+    grid-area: col2;
+  }
+
+  &:nth-child(3) {
+    grid-area: col3;
+  }
+
+  &:nth-child(4) {
+    grid-area: col4;
+  }
 
   &__card {
     padding: 0 !important;
-    margin-bottom: 1rem;
+    margin-bottom: 1.8rem;
     border-radius: 14px;
     overflow: hidden;
-    background-color: #202020;
+    background-color: #323232;
   }
 
   &__image-wrapper {
