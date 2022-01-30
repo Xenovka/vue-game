@@ -1,5 +1,5 @@
 <template>
-  <div class="display-games" v-if="gamesList">
+  <div class="display-games" v-if="gamesList && isLoaded">
     <div>
       <div class="display-games__card-wrapper" v-for="game in firstColumnGames" :key="game.id">
         <div class="display-games__card">
@@ -53,6 +53,7 @@
       </div>
     </div>
   </div>
+  <LoadingSpinner v-else />
 </template>
 
 <script>
@@ -61,7 +62,12 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { watch } from "@vue/runtime-core";
 
+import LoadingSpinner from "./LoadingSpinner.vue";
+
 export default {
+  components: {
+    LoadingSpinner
+  },
   setup() {
     const store = useStore();
     const route = useRoute();
@@ -72,14 +78,14 @@ export default {
       fourthColumnGames = [];
 
     const gamesList = ref(null);
+    const isLoaded = ref(false);
 
     function insertGameToArray(array, game) {
       array.push(game);
     }
 
-    store.dispatch("getGamesList", route.params.genre).then(() => {
-      gamesList.value = store.state.gamesList;
-      gamesList.value.forEach((game) => {
+    function checkIsGamesListAlreadyFull(list) {
+      list.forEach((game) => {
         if (firstColumnGames.length !== 10) insertGameToArray(firstColumnGames, game);
         else if (secondColumnGames.length !== 10) insertGameToArray(secondColumnGames, game);
         else if (thirdColumnGames.length !== 10) insertGameToArray(thirdColumnGames, game);
@@ -88,15 +94,25 @@ export default {
           return;
         }
       });
+    }
+
+    store.dispatch("getGamesList", route.params.genre).then(() => {
+      gamesList.value = store.state.gamesList;
+      checkIsGamesListAlreadyFull(gamesList.value);
+      isLoaded.value = true;
     });
 
     watch(route, (g) => {
+      isLoaded.value = false;
       store.dispatch("getGamesList", g.params.genre).then(() => {
         gamesList.value = store.state.gamesList;
+        console.log(gamesList.value);
+        checkIsGamesListAlreadyFull(gamesList.value);
+        isLoaded.value = true;
       });
     });
 
-    return { gamesList, firstColumnGames, secondColumnGames, thirdColumnGames, fourthColumnGames };
+    return { gamesList, firstColumnGames, secondColumnGames, thirdColumnGames, fourthColumnGames, isLoaded };
   }
 };
 </script>
@@ -148,7 +164,7 @@ export default {
     padding: 14px;
     font-size: 2.4rem;
     font-weight: 700;
-    line-height: 24px;
+    line-height: 1.2;
     color: #fff;
   }
 }
