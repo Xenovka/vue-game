@@ -15,6 +15,7 @@
       </div>
       <div>
         <div class="game-details__screenshots">
+          <h1 class="game-details__screenshots--title">Screenshots</h1>
           <img
             v-for="screenshot in gameDetailsBySlug['short_screenshots']"
             :key="screenshot.id"
@@ -134,6 +135,13 @@ export default {
   &__screenshots {
     &--item {
       max-width: 50%;
+    }
+
+    &--title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 2rem;
     }
   }
 }
