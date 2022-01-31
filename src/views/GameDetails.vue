@@ -62,6 +62,10 @@ export default {
 
 <style lang="scss">
 .game-details {
+  padding: 3rem 1.4rem;
+  height: 100vh;
+  background-image: linear-gradient(0deg, rgba(20, 20, 20, 1) 1%, rgba(9, 9, 121, 0) 100%, rgba(0, 212, 255, 0) 100%);
+
   &__background-image {
     position: absolute;
     top: 0;
@@ -74,15 +78,16 @@ export default {
 
   &__content-wrapper {
     display: grid;
-    grid-gap: 20px;
-    grid-auto-columns: minmax(calc(100vw * 0.25), calc(100vw * 0.5));
+    grid-template-columns: 140px repeat(2, minmax(340px, 1fr));
+    grid-gap: 0 4rem;
+    grid-template-areas: "side content screenshots";
 
-    & > :first-child {
-      grid-column: 1/2;
+    & div:nth-child(1) {
+      grid-area: content;
     }
 
-    & > :last-child {
-      grid-column: 2/3;
+    & div:nth-child(2) {
+      grid-area: screenshots;
     }
   }
 
@@ -97,7 +102,7 @@ export default {
     &--text > p {
       font-size: 1.6rem;
       font-weight: 400;
-      line-height: 1.2;
+      line-height: 1.5;
       color: #fff;
     }
 
@@ -128,7 +133,7 @@ export default {
 
   &__screenshots {
     &--item {
-      max-width: 180px;
+      max-width: 50%;
     }
   }
 }
