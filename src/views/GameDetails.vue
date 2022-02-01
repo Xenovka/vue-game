@@ -8,6 +8,34 @@
           <h1 class="game-details__description--title">About</h1>
           <div class="game-details__description--text" v-html="gameDetailsById.description"></div>
         </div>
+        <div class="game-details__publisher">
+          <h1 class="game-details__publisher--title">Publisher</h1>
+          <p class="game-details__publisher--name" v-for="publisher in gameDetailsById.publishers" :key="publisher.id">
+            {{ publisher.name }}
+          </p>
+        </div>
+        <div class="game-details__developer">
+          <h1 class="game-details__developer--title">Developer</h1>
+          <p class="game-details__developer--name" v-for="developer in gameDetailsById.developers" :key="developer.id">
+            {{ developer.name }}
+          </p>
+        </div>
+        <div class="game-details__platforms">
+          <h1 class="game-details__platforms--title">Platforms</h1>
+          <a class="game-details__platforms--name" v-for="p in gameDetailsById.platforms" :key="p.platform.id"
+            >{{ p.platform.name }},</a
+          >
+        </div>
+        <div class="game-details__genres">
+          <h1 class="game-details__genres--title">Genres</h1>
+          <router-link
+            :to="{ name: 'GameByGenre', params: { genre: genre.name.toLowerCase() } }"
+            v-for="genre in gameDetailsById.genres"
+            :key="genre.id"
+            class="game-details__genres--name"
+            >{{ genre.name }}</router-link
+          >
+        </div>
         <div class="game-details__tags">
           <h1 class="game-details__tags--title">Tags</h1>
           <a class="game-details__tags--name" v-for="tag in gameDetailsById.tags" :key="tag.id">{{ tag.name }},</a>
@@ -27,6 +55,7 @@
       </div>
     </div>
   </div>
+  <LoadingSpinner v-else />
 </template>
 
 <script>
@@ -34,7 +63,12 @@ import { ref } from "@vue/reactivity";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
+import LoadingSpinner from "../components/LoadingSpinner.vue";
+
 export default {
+  components: {
+    LoadingSpinner
+  },
   setup() {
     const route = useRoute();
     const store = useStore();
@@ -65,7 +99,7 @@ export default {
 .game-details {
   padding: 3rem 1.4rem;
   height: 100vh;
-  background-image: linear-gradient(0deg, rgba(20, 20, 20, 1) 1%, rgba(9, 9, 121, 0) 100%, rgba(0, 212, 255, 0) 100%);
+  background-image: linear-gradient(0deg, rgba(20, 20, 20, 1) 1%, rgba(9, 9, 121, 0) 50%, rgba(0, 212, 255, 0) 100%);
 
   &__background-image {
     position: absolute;
@@ -115,7 +149,11 @@ export default {
     }
   }
 
-  &__tags {
+  &__tags,
+  &__genres,
+  &__platforms,
+  &__publisher,
+  &__developer {
     word-wrap: break-word;
 
     &--title {
