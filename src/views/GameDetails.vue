@@ -113,9 +113,9 @@ export default {
 
   &__content-wrapper {
     display: grid;
-    grid-template-columns: 140px repeat(2, minmax(340px, 1fr));
+    grid-template-columns: repeat(2, minmax(340px, 1fr));
     grid-gap: 0 4rem;
-    grid-template-areas: "side content screenshots";
+    grid-template-areas: "content screenshots";
 
     & div:nth-child(1) {
       grid-area: content;
@@ -172,7 +172,13 @@ export default {
 
   &__screenshots {
     &--item {
-      max-width: 50%;
+      width: 50%;
+      border-radius: 14px;
+      padding: 8px;
+    }
+
+    &--item:nth-of-type(1) {
+      width: 100%;
     }
 
     &--title {
