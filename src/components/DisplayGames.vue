@@ -122,23 +122,22 @@ export default {
   display: grid;
   grid-gap: 0 24px;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  grid-template-areas: "col1 col2 col3 col4";
   width: 100%;
 
   &:nth-child(1) {
-    grid-area: col1;
+    grid-column: 1/2;
   }
 
   &:nth-child(2) {
-    grid-area: col2;
+    grid-column: 2/3;
   }
 
   &:nth-child(3) {
-    grid-area: col3;
+    grid-column: 3/4;
   }
 
   &:nth-child(4) {
-    grid-area: col4;
+    grid-column: 4/5;
   }
 
   &__card {
